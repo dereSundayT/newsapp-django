@@ -1,0 +1,125 @@
+{% extends 'single_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+    {% block single_page_content %}
+    <section class="site-section py-lg">
+      <div class="container">
+        <div class="row blog-entries element-animate">
+          <div class="col-md-12 col-lg-8 main-content">
+            <div class="post-content-body">
+              <p> {{object.content}} </p>
+            </div>
+            <div class="pt-5">
+              <p>Categories:
+                           <a href="#">Food</a>, 
+                           <a href="#">Travel</a>\
+                  Tags:    <a href="#">#manila</a>, 
+                           <a href="#">#asia</a></p>
+            </div>
+            <div class="pt-5">
+              <h3 class="mb-5">{{comments}}Comments</h3>
+              <ul class="comment-list">
+              {% for comment in object.comment_set.all  %}
+                {% if comment.publish == True %}
+                 <li class="comment">
+                        <div class="vcard">
+                          <img src="images/person_1.jpg" alt="Image placeholder">
+                        </div>
+                        <div class="comment-body">
+                          <h3>{{comment.user}}</h3>
+                          <div class="meta">
+                              {{comment.created_on|date:'F d, Y'}}   at 
+                              {{comment.created_on|date:'h:m A'}} </div>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                          <p><a href="#" class="reply rounded">Reply</a></p>
+                        </div>
+                        {% comment %} <ul class="children">
+                          <li class="comment">
+                            <div class="vcard">
+                              <img src="images/person_1.jpg" alt="Image placeholder">
+                            </div>
+                            <div class="comment-body">
+                              <h3>Jean Doe</h3>
+                              <div class="meta">January 9, 2018 at 2:21pm</div>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                              <p><a href="#" class="reply rounded">Reply</a></p>
+                            </div>
+
+
+                            <ul class="children">
+                              <li class="comment">
+                                <div class="vcard">
+                                  <img src="images/person_1.jpg" alt="Image placeholder">
+                                </div>
+                                <div class="comment-body">
+                                  <h3>Jean Doe</h3>
+                                  <div class="meta">January 9, 2018 at 2:21pm</div>
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                  <p><a href="#" class="reply rounded">Reply</a></p>
+                                </div>
+
+                                  <ul class="children">
+                                    <li class="comment">
+                                      <div class="vcard">
+                                        <img src="images/person_1.jpg" alt="Image placeholder">
+                                      </div>
+                                      <div class="comment-body">
+                                        <h3>Jean Doe</h3>
+                                        <div class="meta">January 9, 2018 at 2:21pm</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                        <p><a href="#" class="reply rounded">Reply</a></p>
+                                      </div>
+                                    </li>
+                                  </ul>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul> {% endcomment %}
+                  </li>
+              
+                {% endif %}
+              {% endfor %}
+              </ul>
+              <!-- END comment-list -->
+              
+
+               
+                {% if user.is_authenticated %}
+                  <div class="comment-form-wrap pt-5">
+                   <h3 class="mb-3">Leave a comment</h3>
+                      {% if messages %}
+                        <ul class="messages">
+                          {% for message in messages %}
+                            <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    <form action="" method="POST" class="p-5 bg-light" novalidate>
+                      {% csrf_token %}
+                      <div class="form-group">
+                        {{form|crispy}}
+                      </div>
+                      <div class="form-group">
+                        <input type="submit" value="Post Comment" class="btn btn-primary">
+                      </div>
+                    </form>
+                   </div>
+                {% else %}
+                    You must login to post your comments.. 
+                    <a href="">Login</a> or <a href=""> Register </a> here
+                {% endif %}
+             
+            </div>
+
+          </div>
+
+          <!-- END main-content -->
+          {% include 'blog/sidebar.html' %}
+
+        </div>
+      </div>
+    </section>
+    {% include 'blog/related_post.html' %}
+
+      {% endblock single_page_content %}
+    <!-- END section -->
