@@ -9,13 +9,7 @@
             <div class="post-content-body">
               <p> {{object.content}} </p>
             </div>
-            <div class="pt-5">
-              <p>Categories:
-                           <a href="#">Food</a>, 
-                           <a href="#">Travel</a>\
-                  Tags:    <a href="#">#manila</a>, 
-                           <a href="#">#asia</a></p>
-            </div>
+
             <div class="pt-5">
               <h3 class="mb-5">{{comments}}Comments</h3>
               <ul class="comment-list">
@@ -81,9 +75,6 @@
               {% endfor %}
               </ul>
               <!-- END comment-list -->
-              
-
-               
                 {% if user.is_authenticated %}
                   <div class="comment-form-wrap pt-5">
                    <h3 class="mb-3">Leave a comment</h3>
@@ -119,7 +110,7 @@
         </div>
       </div>
     </section>
-    {% include 'blog/related_post.html' %}
+    {% comment %} {% include 'blog/related_post.html' %} {% endcomment %}
 
       {% endblock single_page_content %}
     <!-- END section -->
