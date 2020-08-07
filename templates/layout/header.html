@@ -49,9 +49,13 @@
                 {% for nav in navs  %}
                   <li><a href="{% url 'category' nav.id %}">{{nav.title}}</a></li>
                 {% endfor %}
+                {% if user.is_authenticated %}
+                   <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% endif %}
               </ul>
             </nav>
-            <a href="#" class="site-menu-toggle js-menu-toggle text-black d-inline-block d-lg-none"><span class="icon-menu h3"></span></a></div>
+            <a href="#" class="site-menu-toggle js-menu-toggle text-black d-inline-block d-lg-none">
+              <span class="icon-menu h3"></span></a></div>
           </div>
 
       </div>

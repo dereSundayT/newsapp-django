@@ -97,7 +97,7 @@
                    </div>
                 {% else %}
                     You must login to post your comments.. 
-                    <a href="">Login</a> or <a href=""> Register </a> here
+                    <a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}"> Register </a> here
                 {% endif %}
              
             </div>
